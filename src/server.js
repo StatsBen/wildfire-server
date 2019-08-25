@@ -1,7 +1,7 @@
 const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 const express = require("express");
-const db = require("./database/db");
+// const db = require("./database/db");
 
 const firesRouter = require("./fires/fires.router");
 

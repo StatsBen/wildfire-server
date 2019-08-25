@@ -5,6 +5,6 @@ const db = require("../database/db");
 const firesRouter = Router();
 
 /** fires/fire  **/
-firesRouter.route("/").get(controller.getOne);
+firesRouter.route("/").get(controller.getFountainFireDemo);
 
 module.exports = firesRouter;
