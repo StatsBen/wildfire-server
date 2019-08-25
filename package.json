@@ -4,7 +4,8 @@
   "description": "A little node server that can be spun up locally to serve wildfire data",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "go": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,9 @@
   "homepage": "https://github.com/StatsBen/wildfire-server#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "http": "0.0.0",
-    "path": "^0.12.7",
     "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
   }
 }

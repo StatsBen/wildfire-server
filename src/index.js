@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-"use strict";
+//"use strict";
 
-import { start } from "./server";
+const start = require("./server");
+
+start();
