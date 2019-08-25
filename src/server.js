@@ -5,8 +5,10 @@ var express = require("express");
 export const app = express();
 
 export const start = async () => {
+  const DB_PATH = "../database/db.sql";
+
   try {
-    // await connect(); <- Import a connect function that connects to the DB
+    var myDB = new sqlite3.Database(DB_PATH);
     app.listen(3001, () => {
       console.log(`REST API on http://localhost:3001/api`);
     });
