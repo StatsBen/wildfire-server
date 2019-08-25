@@ -1,41 +1,86 @@
 const path = require("path");
 const sqlite3 = require("sqlite3");
-const { handleDBError } = require("../utils");
+const { colourizer } = require("../utils");
 
 const DB_PATH = path.join(__dirname, "db.sqlite");
-console.log(`\nAttempting to connect to database at: ${DB_PATH} ... ... `);
+console.log(`Attempting to connect to database at: ${DB_PATH} ... ... `);
 
 const db = new sqlite3.Database(DB_PATH, err => {
-  if (err) handleDBError(err);
-  else console.log("\nDatabase connected!");
+  if (err) handleConnectionError(err);
+  else console.log("Database connected!");
 });
 
 db.getOneAsync = sql => {
+  console.log('Running query: "' + sql + '"');
   return new Promise((resolve, reject) => {
     db.get(sql, (err, row) => {
       if (err) reject(err);
-      else resolve(row);
+      else {
+        db.logResults(row);
+        resolve(row);
+      }
     });
   });
 };
 
-db.getAllAsync = sql => {
+db.getAllAsync = sqlWhere => {
+  const sql = `SELECT * FROM Fires WHERE ${sqlWhere} LIMIT 100;`;
+  console.log('Build query: "' + sql + '"');
+
+  db.logCountPossible(sqlWhere);
+
   return new Promise((resolve, reject) => {
     db.all(sql, (err, rows) => {
       if (err) reject(err);
-      else resolve(rows);
+      else {
+        db.logResults(rows);
+        resolve(rows);
+      }
     });
   });
 };
 
-db.logQuery = q => {
-  console.log('Running query: "' + q + '"');
+db.logResults = rows => {
+  console.log("Query returned with no errors!");
+  if (rows.length) {
+    rows.map(row => {
+      console.log(row.FIRE_NAME + ", " + row.FIRE_YEAR + " - " + row.STATE);
+    });
+  } else {
+    if (Array.isArray(rows)) console.log("Empty result set...");
+    else console.log(rows);
+  }
 };
 
-db.handleError = err => {
-  console.error("\x1b[31m", "\nDatabase request failed! \n");
-  console.error(err);
+db.handleError = (err, res) => {
+  console.error(colourizer.red("Database request failed!"));
+  console.error(err, "\n");
+  res
+    .status(400)
+    .json({ message: "Error getting data from database!" })
+    .end();
   return null;
+};
+
+db.handleConnectionError = err => {
+  console.error(colourizer.red(`Couldn't connect to the database :'(`));
+  console.error(err);
+  process.exit(1);
+};
+
+db.logCountPossible = sqlWhere => {
+  const countSQL = `SELECT COUNT(*) AS ct FROM Fires WHERE ${sqlWhere};`;
+  db.get(countSQL, (err, row) => {
+    if (err) {
+      console.error(colourizer.red("Error counting... hm.."));
+    } else {
+      let str = "Extracted 100 rows out of " + row.ct + " possible!";
+      str = colourizer.bold(str);
+      str = colourizer.underline(str);
+      str = colourizer.green(str);
+      console.log(str);
+    }
+  });
 };
 
 // const SQL3 = {

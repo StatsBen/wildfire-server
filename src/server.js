@@ -1,7 +1,7 @@
 const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 const express = require("express");
-// const db = require("./database/db");
+const { colourizer } = require("./utils");
 
 const firesRouter = require("./fires/fires.router");
 
@@ -20,7 +20,9 @@ app.use("/fires", firesRouter);
 const start = async () => {
   try {
     app.listen(3001, () => {
-      console.log(`\nREST API on http://localhost:3001/api \n `);
+      console.log(
+        colourizer.bigBlue(`API is now running at http://localhost:3001/`)
+      );
     });
   } catch (e) {
     console.error(e);
