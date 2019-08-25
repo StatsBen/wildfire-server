@@ -1,0 +1,19 @@
+{
+  "name": "wildfire-server",
+  "version": "0.9.9",
+  "description": "A little node server that can be spun up locally to serve wildfire data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StatsBen/wildfire-server.git"
+  },
+  "author": "Ben Clark - Aug. 2019",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/StatsBen/wildfire-server/issues"
+  },
+  "homepage": "https://github.com/StatsBen/wildfire-server#readme"
+}
