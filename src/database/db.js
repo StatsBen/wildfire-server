@@ -29,7 +29,7 @@ db.getAllAsync = sql => {
 };
 
 db.logQuery = q => {
-  console.log('Running query: \n"' + q + '"\n');
+  console.log('Running query: "' + q + '"');
 };
 
 db.handleError = err => {
