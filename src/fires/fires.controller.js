@@ -21,6 +21,16 @@ const controller = {
     }
   },
 
+  getFiresByStateAndYear: async (state, year, req, res) => {
+    let sqlWhere = `FIRE_YEAR=${year} AND STATE='${state}'`;
+    try {
+      const fires = await db.getAllAsync(sqlWhere);
+      return res.status(200).json(await fires);
+    } catch (e) {
+      db.handleError(e, res);
+    }
+  },
+
   getFountainFireDemo: async (req, res) => {
     let sql = `SELECT * FROM Fires WHERE FIRE_NAME='FOUNTAIN';`;
     try {
