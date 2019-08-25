@@ -1,9 +1,9 @@
 const db = require("../database/db");
 
 const controller = {
-  getOne() {
+  getOne: async (req, res) => {
     // STUB
-    return JSON.stringify({ name: "cat poo" });
+    return res.status(200).json({ name: "cat poo" });
   }
 };
 

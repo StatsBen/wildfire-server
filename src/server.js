@@ -1,3 +1,4 @@
+const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 const express = require("express");
 const db = require("./database/db");
@@ -6,7 +7,13 @@ const firesRouter = require("./fires/fires.router");
 
 const app = express();
 
+app.use(cors());
 app.use(json());
+app.use(urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "server is running here!" });
+});
 
 app.use("/fires", firesRouter);
 
