@@ -1,6 +1,6 @@
 # wildfire-server
 
-A lil' node server that can be spin up locally to serve wildfire data
+A lil' node server that can be spun up locally to serve wildfire data
 
 ## Installing the database
 
@@ -8,7 +8,7 @@ A lil' node server that can be spin up locally to serve wildfire data
 2. create a `database` directory within the `src` directory.
 3. Extract the wildfires database, name it `db.sqlite`, and put it in the `database` directory.
 
-Or, if you like to improv, just make sure that the `DB_PATH` variable in `server.js` matches the path to where you've downloaded the dataset... And download it from the right place!
+Or, if you like to improv, just make sure that the `DB_PATH` variable in `database/db.js` matches the path to where you've downloaded the dataset... And download it from the right place!
 
 ## Running the server
 
