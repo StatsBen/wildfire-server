@@ -2,7 +2,7 @@
   "name": "wildfire-server",
   "version": "0.9.9",
   "description": "A little node server that can be spun up locally to serve wildfire data",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
