@@ -3,7 +3,7 @@ const sqlite3 = require("sqlite3");
 const { colourizer } = require("../utils");
 
 const LIMIT = 1000; // <- Max number of queries to return for any query
-const DEV_MODE = true;
+const DEV_MODE = false;
 const DB_PATH = path.join(__dirname, "db.sqlite");
 console.log(`Attempting to connect to database at: ${DB_PATH} ... ... `);
 
