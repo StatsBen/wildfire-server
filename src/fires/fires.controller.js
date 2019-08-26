@@ -1,7 +1,8 @@
 const db = require("../database/db");
 
 const controller = {
-  getFiresByState: async (state, req, res) => {
+  getFiresByState: async (req, res) => {
+    const { state } = req.params;
     let sqlWhere = `STATE='${state}'`;
     try {
       const fires = await db.getAllAsync(sqlWhere);
@@ -11,7 +12,8 @@ const controller = {
     }
   },
 
-  getFiresByYear: async (year, req, res) => {
+  getFiresByYear: async (req, res) => {
+    const { year } = req.params;
     let sqlWhere = `FIRE_YEAR=${year}`;
     try {
       const fires = await db.getAllAsync(sqlWhere);
@@ -21,7 +23,8 @@ const controller = {
     }
   },
 
-  getFiresByStateAndYear: async (state, year, req, res) => {
+  getFiresByStateAndYear: async (req, res) => {
+    const { year, state } = req.params;
     let sqlWhere = `FIRE_YEAR=${year} AND STATE='${state}'`;
     try {
       const fires = await db.getAllAsync(sqlWhere);
