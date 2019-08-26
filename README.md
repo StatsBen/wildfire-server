@@ -13,3 +13,7 @@ Or, if you like to improv, just make sure that the `DB_PATH` variable in `databa
 ## Running the server
 
 `npm run go` (and you may have to run `npm install` as well... _maybe..._)
+
+## Dev Mode
+
+To increase the amount of console logging that happens, go into the `db.js` file and ensure that `DEV_MODE` (should be near the top somewhere) is set to `true`. (And of course set it to fasle if you're sick of the console blowing up...).

@@ -2,6 +2,8 @@ const path = require("path");
 const sqlite3 = require("sqlite3");
 const { colourizer } = require("../utils");
 
+const LIMIT = 1000; // <- Max number of queries to return for any query
+const DEV_MODE = true;
 const DB_PATH = path.join(__dirname, "db.sqlite");
 console.log(`Attempting to connect to database at: ${DB_PATH} ... ... `);
 
@@ -16,7 +18,7 @@ db.getOneAsync = sql => {
     db.get(sql, (err, row) => {
       if (err) reject(err);
       else {
-        db.logResults(row);
+        if (DEV_MODE) db.logResults(row);
         resolve(row);
       }
     });
@@ -24,7 +26,7 @@ db.getOneAsync = sql => {
 };
 
 db.getAllAsync = sqlWhere => {
-  const sql = `SELECT * FROM Fires WHERE ${sqlWhere} LIMIT 100;`;
+  const sql = `SELECT * FROM Fires WHERE ${sqlWhere} LIMIT ${LIMIT};`;
   console.log('Build query: "' + sql + '"');
 
   db.logCountPossible(sqlWhere);
@@ -33,7 +35,7 @@ db.getAllAsync = sqlWhere => {
     db.all(sql, (err, rows) => {
       if (err) reject(err);
       else {
-        db.logResults(rows);
+        if (DEV_MODE) db.logResults(rows);
         resolve(rows);
       }
     });
@@ -74,7 +76,8 @@ db.logCountPossible = sqlWhere => {
     if (err) {
       console.error(colourizer.red("Error counting... hm.."));
     } else {
-      let str = "Extracted 100 rows out of " + row.ct + " possible!";
+      let ex = Math.min(LIMIT, row.ct);
+      let str = `Extracted ${ex} rows out of ` + row.ct + " possible!";
       str = colourizer.bold(str);
       str = colourizer.underline(str);
       str = colourizer.green(str);
