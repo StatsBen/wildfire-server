@@ -1,4 +1,5 @@
 const db = require("../database/db");
+const { parseDate } = require("../utils");
 
 const controller = {
   getFiresByState: async (req, res) => {
@@ -31,6 +32,31 @@ const controller = {
       return res.status(200).json(await fires);
     } catch (e) {
       db.handleError(e, res);
+    }
+  },
+
+  getFireByStartDate: async (req, res) => {
+    const { doy, year } = parseDate(req);
+    let sqlWhere = `DISCOVERY_DOY=${doy} AND FIRE_YEAR=${year}`;
+    try {
+      const fires = await db.getAllAsync(sqlWhere);
+      return res.status(200).json(await fires);
+    } catch (e) {
+      db.handleError(e, res);
+    }
+  },
+
+  getFireBurningOn: async (req, res) => {
+    const { doy, year } = parseDate(req);
+    let sqlWhere = `
+			DISCOVERY_DOY>${doy} AND
+			CONT_DOY<${doy} AND
+			FIRE_YEAR=${year} `;
+    try {
+      const fires = await db.getAllAsync(sqlWhere);
+      return res.status(200).json(await fires);
+    } catch (e) {
+      db.handlError(e, res);
     }
   },
 

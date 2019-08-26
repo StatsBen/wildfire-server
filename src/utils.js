@@ -24,4 +24,18 @@ const colourizer = {
   }
 };
 
-module.exports = { colourizer };
+const parseDate = req => {
+  const { date } = req.params;
+  const oneDay = 1000 * 60 * 60 * 24;
+  let dateObj = new Date(date);
+  let year = dateObj.getFullYear();
+  let d0 = new Date(year, 0, 0);
+  let diff = dateObj - d0;
+  let doy = Math.floor(diff / oneDay);
+  console.log(
+    "Date was parsed such that DOY=" + doy + ", and year=" + year + "."
+  );
+  return { doy, year };
+};
+
+module.exports = { colourizer, parseDate };
