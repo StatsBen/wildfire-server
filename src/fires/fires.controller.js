@@ -49,8 +49,8 @@ const controller = {
   getFireBurningOn: async (req, res) => {
     const { doy, year } = parseDate(req);
     let sqlWhere = `
-			DISCOVERY_DOY>${doy} AND
-			CONT_DOY<${doy} AND
+			DISCOVERY_DOY<=${doy} AND
+			CONT_DOY>=${doy} AND
 			FIRE_YEAR=${year} `;
     try {
       const fires = await db.getAllAsync(sqlWhere);
