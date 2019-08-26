@@ -17,6 +17,13 @@ app.get("/", (req, res) => {
 
 app.use("/fires", firesRouter);
 
+app.get("*", (req, res) => {
+  res
+    .status(404)
+    .json({ message: "Invalid API Endpoint" })
+    .end();
+});
+
 const start = async () => {
   try {
     app.listen(3001, () => {
